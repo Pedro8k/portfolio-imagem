@@ -1,18 +1,71 @@
 const repoContainer = document.getElementById("repos");
+const loading = document.getElementById("loading");
 
-fetch("https://api.github.com/users/Pedro8k/repos")
-  .then(response => response.json())
-  .then(data => {
-    data.forEach(repo => {
-      const card = document.createElement("div");
-      card.classList.add("repo-card");
+// COLE SEU TOKEN AQUI
+const TOKEN = "";
 
-      card.innerHTML = `
-        <h3>${repo.name}</h3>
-        <p>${repo.description ? repo.description : "Sem descrição"}</p>
-        <a href="${repo.html_url}" target="_blank">Ver no GitHub</a>
-      `;
+async function carregarRepositorios() {
 
-      repoContainer.appendChild(card);
-    });
-  });
+  try {
+
+    const response = await fetch(
+      "https://api.github.com/users/Pedro8k/repos",
+      {
+        headers: {
+          Authorization: `Bearer ${TOKEN}`
+        }
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`Erro HTTP: ${response.status}`);
+    }
+
+    const repos = await response.json();
+
+    loading.style.display = "none";
+
+    repoContainer.innerHTML = "";
+
+    repos
+      .filter(repo => !repo.fork)
+      .sort((a, b) =>
+        new Date(b.created_at) - new Date(a.created_at)
+      )
+
+      .forEach(repo => {
+
+        const card = document.createElement("div");
+
+        card.classList.add("repo-card");
+
+        card.innerHTML = `
+          <h3>${repo.name}</h3>
+
+          <p>
+            ${repo.description || "Sem descrição disponível"}
+          </p>
+
+          <p>
+            ⭐ ${repo.stargazers_count}
+          </p>
+
+          <a href="${repo.html_url}" target="_blank">
+            Ver no GitHub
+          </a>
+        `;
+
+        repoContainer.appendChild(card);
+      });
+
+  } catch(error) {
+
+    console.error(error);
+
+    loading.innerHTML = `
+      Erro ao carregar repositórios.
+    `;
+  }
+}
+
+carregarRepositorios();
