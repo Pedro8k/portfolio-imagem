@@ -201,12 +201,6 @@
       color:#94a3b8;
     }
 
-    .loading{
-      color:#94a3b8;
-      text-align:center;
-      margin-top:20px;
-    }
-
     @media(max-width:768px){
 
       nav{
@@ -358,30 +352,7 @@
 
   <h2>Projetos</h2>
 
-  <div class="repo-card">
-
-    <h3>SaneaSP</h3>
-
-    <p>
-      Plataforma desenvolvida utilizando Angular,
-      Bootstrap e banco de dados relacional.
-    </p>
-
-    <a href="https://github.com/MathGueff/SaneaSP" target="_blank">
-      Ver Projeto
-    </a>
-
-  </div>
-
-  <br>
-
-  <h2>Meus Repositórios GitHub</h2>
-
   <div id="repos" class="repos"></div>
-
-  <p class="loading" id="loading">
-    Carregando repositórios...
-  </p>
 
 </section>
 
@@ -413,10 +384,62 @@
 </section>
 
 <footer>
-  <p>© 2026 Pedro Martins</p>
+  <p>© 2026 Pedro Martins - Todos os direitos reservados.</p>
 </footer>
 
-<script src="script.js"></script>
+<script>
+
+  const projetos = [
+
+    {
+      nome: "SaneaSP",
+      descricao: "Plataforma desenvolvida com Angular, Bootstrap e banco de dados relacional para comunicação sobre saneamento.",
+      link: "https://github.com/MathGueff/SaneaSP"
+    },
+
+    {
+      nome: "Portfolio Website",
+      descricao: "Meu portfólio pessoal desenvolvido com HTML, CSS e JavaScript responsivo.",
+      link: "https://github.com/Pedro8k"
+    },
+
+    {
+      nome: "Automação com Python",
+      descricao: "Scripts de automação de processos industriais, extração de dados e integração com SAP.",
+      link: "https://github.com/Pedro8k"
+    },
+
+    {
+      nome: "Projetos Acadêmicos",
+      descricao: "Projetos desenvolvidos durante a graduação em Desenvolvimento de Software Multiplataforma.",
+      link: "https://github.com/Pedro8k"
+    }
+
+  ];
+
+  const repoContainer = document.getElementById("repos");
+
+  projetos.forEach(projeto => {
+
+    const card = document.createElement("div");
+
+    card.classList.add("repo-card");
+
+    card.innerHTML = `
+      <h3>${projeto.nome}</h3>
+
+      <p>${projeto.descricao}</p>
+
+      <a href="${projeto.link}" target="_blank">
+        Ver Projeto
+      </a>
+    `;
+
+    repoContainer.appendChild(card);
+
+  });
+
+</script>
 
 </body>
 </html>

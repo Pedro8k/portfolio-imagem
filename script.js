@@ -1,20 +1,12 @@
 const repoContainer = document.getElementById("repos");
 const loading = document.getElementById("loading");
 
-// COLE SEU TOKEN AQUI
-const TOKEN = "";
-
 async function carregarRepositorios() {
 
   try {
 
     const response = await fetch(
-      "https://api.github.com/users/Pedro8k/repos",
-      {
-        headers: {
-          Authorization: `Bearer ${TOKEN}`
-        }
-      }
+      "https://api.github.com/users/Pedro8k/repos"
     );
 
     if (!response.ok) {
